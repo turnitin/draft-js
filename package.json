@@ -9,7 +9,7 @@
     "richtext"
   ],
   "homepage": "http://draftjs.org/",
-  "bugs": "https://github.com/facebook/draft-js/issues",
+  "bugs": "https://github.com/turnitin/draft-js/issues",
   "files": [
     "dist/",
     "lib/",
@@ -17,7 +17,7 @@
     "PATENTS"
   ],
   "main": "lib/Draft.js",
-  "repository": "facebook/draft-js",
+  "repository": "turnitin/draft-js",
   "license": "BSD-3-Clause",
   "scripts": {
     "prepublish": "npm run build",
