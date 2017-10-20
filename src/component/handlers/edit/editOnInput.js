@@ -90,12 +90,26 @@ function editOnInput(editor: DraftEditor): void {
   var offsetKey = nullthrows(findAncestorOffsetKey(anchorNode));
   var {blockKey, decoratorKey, leafKey} = DraftOffsetKey.decode(offsetKey);
 
-  var {start, end} = editorState
+  var blockTree = editorState
     .getBlockTree(blockKey)
     .getIn([decoratorKey, 'leaves', leafKey]);
 
+  if(!blockTree) {
+    // TURNITIN PATCH: It appears as though the block here can be null due to a race.
+    // Guard against it.
+    return;
+  }
+
+  var {start, end} = blockTree;
   var content = editorState.getCurrentContent();
   var block = content.getBlockForKey(blockKey);
+
+  if(!block) {
+    // TURNITIN PATCH: It appears as though the block here can be null due to a race.
+    // Guard against it.
+    return;
+  }
+
   var modelText = block.getText().slice(start, end);
 
   // Special-case soft newlines here. If the DOM text ends in a soft newline,
